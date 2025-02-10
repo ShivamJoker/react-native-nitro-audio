@@ -1,0 +1,17 @@
+{
+  "cxxNamespace": ["nitroaudio"],
+  "ios": {
+    "iosModuleName": "NitroAudio"
+  },
+  "android": {
+    "androidNamespace": ["nitroaudio"],
+    "androidCxxLibName": "nitroaudio"
+  },
+  "autolinking": {
+    "NitroAudio": {
+      "swift": "NitroAudio",
+      "kotlin": "NitroAudio"
+    }
+  },
+  "ignorePaths": ["node_modules"]
+}
