@@ -1,4 +1,4 @@
-# react-native-nitro-audio
+# React Native Nitro Audio
 
 Play audio files in React Native
 
@@ -12,15 +12,16 @@ npm install react-native-nitro-audio react-native-nitro-modules
 
 ## Usage
 
-
 ```js
-import { multiply } from 'react-native-nitro-audio';
+import AudioManager from 'react-native-nitro-audio';
 
 // ...
 
-const result = multiply(3, 7);
+AudioManager.createPlayer(
+  '1',
+  'https://samplelib.com/lib/preview/mp3/sample-6s.mp3'
+);
 ```
-
 
 ## Contributing
 
