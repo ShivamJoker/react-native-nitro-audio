@@ -2,7 +2,7 @@ import type { HybridObject } from 'react-native-nitro-modules';
 
 export interface NitroAudio
   extends HybridObject<{ ios: 'swift'; android: 'kotlin' }> {
-  createPlayer(id: string, url: string): void;
+  createPlayer(id: string, url: string): Promise<number>;
   play(id: string): void;
   pause(id: string): void;
   stop(id: string): void;

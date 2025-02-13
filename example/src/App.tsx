@@ -1,30 +1,63 @@
-import { useEffect } from 'react';
-import { Text, View, StyleSheet, Button, ToastAndroid } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Text, View, StyleSheet, Button } from 'react-native';
 import AudioManager from 'react-native-nitro-audio';
 
 export default function App() {
+  const [isLooping, setIsLooping] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [speed, setSpeed] = useState(1);
+  const [duration, setDuration] = useState(0);
   useEffect(() => {
-    try {
-      AudioManager.createPlayer(
-        '1',
-        'https://cdn.freesound.org/previews/353/353194_5121236-lq.mp3'
-      );
-      // // NitroAudioHybridObject.setLoop('1', true);
-      AudioManager.addInfoEventListener('1', (status) => {
-        console.log(status);
-        ToastAndroid.show('S' + status, 200);
+    // try {
+    AudioManager.createPlayer(
+      '1',
+      'sounds/pingu-theme-music.mp3'
+      // 'https://nootnoot.in/_astro/pingu-theme-music.6b29e06c.mp3'
+    )
+      .then((dur) => {
+        setDuration(dur);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      //
-      // AudioManager.pause('1');
-    } catch (error) {
-      console.log(error);
-    }
+    // // NitroAudioHybridObject.setLoop('1', true);
+    // AudioManager.addInfoEventListener('1', (status) => {
+    //   console.log(status);
+    // });
+    //
+    // AudioManager.pause('1');
+    // } catch (error) {
+    //   console.log(error);
+    // }
   }, []);
   return (
     <View style={styles.container}>
       <Text>Play audio files like a pro</Text>
-      <Button title="Play" onPress={() => AudioManager.play('1')} />
-      <Button title="Pause" onPress={() => AudioManager.pause('1')} />
+      <Text>Duration: {duration.toFixed(2)}</Text>
+      <Button
+        title={isPlaying ? 'Pause' : 'Play'}
+        onPress={() => {
+          setIsPlaying(!isPlaying);
+          isPlaying ? AudioManager.pause('1') : AudioManager.play('1');
+        }}
+      />
+
+      <Button
+        title={isLooping ? 'Remove Loop' : 'Loop'}
+        onPress={() => {
+          setIsLooping(!isLooping);
+          AudioManager.setLoop('1', !isLooping);
+        }}
+      />
+
+      <Button
+        title={`${speed}X`}
+        onPress={() => {
+          const newRate = speed >= 2 ? 0.5 : speed + 0.5;
+          setSpeed(newRate);
+          AudioManager.setRate('1', newRate);
+        }}
+      />
     </View>
   );
 }
