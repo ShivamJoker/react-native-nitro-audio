@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, Button, Alert } from 'react-native';
 import AudioManager from 'react-native-nitro-audio';
 
 export default function App() {
@@ -18,7 +18,8 @@ export default function App() {
         setDuration(dur);
       })
       .catch((err) => {
-        console.log(err);
+        //@ts-ignore
+        Alert.alert('Failed to load audio', err.message);
       });
     // // NitroAudioHybridObject.setLoop('1', true);
     // AudioManager.addInfoEventListener('1', (status) => {
